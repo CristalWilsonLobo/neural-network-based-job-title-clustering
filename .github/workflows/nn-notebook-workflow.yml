@@ -1,0 +1,27 @@
+name: NN Jupyter Notebook Workflow
+
+on:
+  push:
+    paths:
+      - 'src/NNJobTitleClustering_Updated_Final_download.ipynb'
+
+jobs:
+  run-notebook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install jupyterlab
+          # Add any other dependencies here
+          
+      - name: Execute Jupyter notebook
+        run: |
+          jupyter nbconvert --to notebook --execute src/NNJobTitleClustering_Updated_Final_download.ipynb --output src/NNJobTitleClustering_Updated_Final_download_executed.ipynb
